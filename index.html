@@ -1,0 +1,543 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nassour Brahim — Développeur Web</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --or: #C9A84C;
+    --or-clair: #E8C97A;
+    --or-sombre: #8B6914;
+    --noir: #0A0A0A;
+    --noir2: #0D0D0D;
+    --noir3: #1A1A1A;
+    --blanc: #F5F0E8;
+    --gris: #888;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--noir);
+    color: var(--blanc);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--or);
+    border-radius: 50%;
+    position: fixed; pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--or);
+    border-radius: 50%;
+    position: fixed; pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+    opacity: 0.5;
+  }
+
+  #particles {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  nav {
+    position: fixed; top: 0; width: 100%;
+    padding: 24px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 50;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.97), transparent);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: var(--or);
+    text-transform: uppercase;
+  }
+  .nav-cta {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or);
+    text-decoration: none;
+    border: 1px solid var(--or-sombre);
+    padding: 8px 20px;
+    transition: all 0.3s;
+  }
+  .nav-cta:hover { background: var(--or); color: var(--noir); }
+
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 0 40px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-glow {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 60% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 620px; }
+  .hero-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-title span { color: var(--or); }
+  .hero-sub {
+    margin-top: 24px;
+    font-size: 1rem;
+    color: var(--gris);
+    font-weight: 300;
+    line-height: 1.8;
+    max-width: 420px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-actions {
+    margin-top: 40px;
+    display: flex; gap: 16px; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .btn-or {
+    background: var(--or);
+    color: var(--noir);
+    padding: 14px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+  .btn-or:hover { background: var(--or-clair); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--or);
+    padding: 14px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--or-sombre);
+    transition: all 0.3s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--or); color: var(--blanc); }
+
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 40px;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 0.65rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--gris);
+    opacity: 0; animation: fadeUp 0.8s 1.2s forwards;
+  }
+  .scroll-line {
+    width: 40px; height: 1px;
+    background: var(--or-sombre);
+    position: relative; overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: var(--or);
+    animation: scrollLine 2s 1.5s infinite;
+  }
+
+  .section { padding: 100px 40px; position: relative; z-index: 1; }
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 60px;
+  }
+  .section-title span { color: var(--or); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2px;
+  }
+  .service-card {
+    background: rgba(26,26,26,0.85);
+    backdrop-filter: blur(10px);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+    border: 1px solid #1E1E1E;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--or);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { background: rgba(30,30,30,0.95); }
+
+  .service-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--or-sombre);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 20px;
+    transition: -webkit-text-stroke 0.3s;
+  }
+  .service-card:hover .service-num { -webkit-text-stroke-color: var(--or); }
+  .service-name { font-size: 1rem; font-weight: 500; margin-bottom: 12px; }
+  .service-desc { font-size: 0.85rem; color: var(--gris); line-height: 1.7; }
+  .service-price { margin-top: 20px; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--or); }
+
+  .clients-section { background: rgba(13,13,13,0.6); }
+  .clients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1px;
+  }
+  .client-item {
+    padding: 32px 24px;
+    background: rgba(26,26,26,0.7);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; gap: 16px;
+    transition: all 0.3s;
+    border-left: 2px solid transparent;
+  }
+  .client-item:hover { border-left-color: var(--or); background: rgba(30,30,30,0.9); }
+  .client-icon { font-size: 1.6rem; }
+  .client-name { font-size: 0.85rem; font-weight: 500; }
+
+  .process-list { display: flex; flex-direction: column; }
+  .process-item {
+    display: flex; gap: 32px; align-items: flex-start;
+    padding: 32px 0;
+    border-bottom: 1px solid #1E1E1E;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.6s;
+  }
+  .process-item.visible { opacity: 1; transform: translateX(0); }
+  .process-step {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--or-sombre);
+    font-weight: 900;
+    min-width: 60px;
+    line-height: 1;
+  }
+  .process-title { font-size: 1rem; font-weight: 500; margin-bottom: 8px; }
+  .process-desc { font-size: 0.85rem; color: var(--gris); line-height: 1.7; }
+
+  .cta-section {
+    text-align: center;
+    padding: 120px 40px;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 60% at center, rgba(201,168,76,0.07), transparent);
+    pointer-events: none;
+  }
+  .cta-big {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    position: relative;
+    margin-bottom: 32px;
+  }
+  .cta-big span { color: var(--or); }
+  .cta-sub { color: var(--gris); font-size: 0.9rem; margin-bottom: 48px; }
+
+  footer {
+    padding: 32px 40px;
+    border-top: 1px solid #1A1A1A;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    position: relative; z-index: 1;
+  }
+  .footer-copy { font-size: 0.75rem; color: var(--gris); letter-spacing: 0.1em; }
+  .footer-brand { font-family: 'Playfair Display', serif; font-size: 0.85rem; color: var(--or); letter-spacing: 0.2em; text-transform: uppercase; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollLine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 20px; }
+    .hero { padding: 0 20px; }
+    .section { padding: 70px 20px; }
+    footer { padding: 24px 20px; }
+    .cta-section { padding: 80px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="logo">N·Brahim</div>
+  <a href="https://api.whatsapp.com/send?phone=23565008485" target="_blank" class="nav-cta">WhatsApp</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <p class="hero-label">Développeur Web · N'Djaména, Tchad</p>
+    <h1 class="hero-title">Nassour<br><span>Brahim</span></h1>
+    <p class="hero-sub">Je crée des sites web professionnels pour les entreprises locales qui veulent exister en ligne et attirer plus de clients.</p>
+    <div class="hero-actions">
+      <a href="https://api.whatsapp.com/send?phone=23565008485" target="_blank" class="btn-or">Discutons de votre projet</a>
+      <a href="#services" class="btn-outline">Voir mes offres</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Découvrir
+  </div>
+</section>
+
+<section class="section" id="services">
+  <p class="section-label">Ce que je fais</p>
+  <h2 class="section-title">Mes <span>Services</span></h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-name">Site Vitrine</div>
+      <p class="service-desc">Présence en ligne élégante pour votre activité. Design moderne, responsive, rapide. Idéal pour être trouvé et faire bonne impression.</p>
+      <p class="service-price">À partir de 50 000 FCFA</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-name">Site Restaurant & Menu</div>
+      <p class="service-desc">Menu en ligne, galerie photos, formulaire de réservation. Vos clients consultent votre carte avant même d'arriver.</p>
+      <p class="service-price">À partir de 75 000 FCFA</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-name">Site Commerce & Boutique</div>
+      <p class="service-desc">Présentez vos produits, vos prix, vos contacts. Une boutique en ligne simple qui génère des demandes chaque jour.</p>
+      <p class="service-price">À partir de 80 000 FCFA</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-name">Landing Page Événement</div>
+      <p class="service-desc">Page dédiée pour un événement, une offre spéciale ou un lancement. Simple, percutant, livré en 48h.</p>
+      <p class="service-price">À partir de 35 000 FCFA</p>
+    </div>
+  </div>
+</section>
+
+<section class="section clients-section">
+  <p class="section-label">Pour qui je travaille</p>
+  <h2 class="section-title">Vos <span>Concurrents</span> ont déjà un site.</h2>
+  <div class="clients-grid">
+    <div class="client-item"><span class="client-icon">🍽️</span><span class="client-name">Restaurants & Cafés</span></div>
+    <div class="client-item"><span class="client-icon">🏪</span><span class="client-name">Boutiques & Commerces</span></div>
+    <div class="client-item"><span class="client-icon">🏥</span><span class="client-name">Cliniques & Pharmacies</span></div>
+    <div class="client-item"><span class="client-icon">🏫</span><span class="client-name">Écoles & Formations</span></div>
+    <div class="client-item"><span class="client-icon">🏨</span><span class="client-name">Hôtels & Guesthouses</span></div>
+    <div class="client-item"><span class="client-icon">💼</span><span class="client-name">Bureaux & Entreprises</span></div>
+    <div class="client-item"><span class="client-icon">💇</span><span class="client-name">Salons de beauté</span></div>
+    <div class="client-item"><span class="client-icon">🛠️</span><span class="client-name">Artisans & Services</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="section-label">Comment ça marche</p>
+  <h2 class="section-title">Simple & <span>Rapide</span></h2>
+  <div class="process-list">
+    <div class="process-item">
+      <div class="process-step">01</div>
+      <div class="process-content">
+        <div class="process-title">On discute de votre projet</div>
+        <p class="process-desc">Vous m'expliquez votre activité, ce que vous voulez sur le site. Un simple message WhatsApp suffit.</p>
+      </div>
+    </div>
+    <div class="process-item">
+      <div class="process-step">02</div>
+      <div class="process-content">
+        <div class="process-title">Je crée votre site</div>
+        <p class="process-desc">Je conçois votre site sur mesure selon vos besoins. Délai : 3 à 7 jours selon la complexité.</p>
+      </div>
+    </div>
+    <div class="process-item">
+      <div class="process-step">03</div>
+      <div class="process-content">
+        <div class="process-title">Vous validez & on ajuste</div>
+        <p class="process-desc">Vous donnez votre avis, je modifie jusqu'à ce que ce soit parfait pour vous.</p>
+      </div>
+    </div>
+    <div class="process-item">
+      <div class="process-step">04</div>
+      <div class="process-content">
+        <div class="process-title">Livraison & mise en ligne</div>
+        <p class="process-desc">Votre site est en ligne et visible par vos clients. Paiement via Wave ou Orange Money.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2 class="cta-big">Prêt à avoir<br>votre site <span>pro</span> ?</h2>
+  <p class="cta-sub">Contactez-moi maintenant — réponse en moins d'une heure.</p>
+  <a href="https://api.whatsapp.com/send?phone=23565008485" target="_blank" class="btn-or" style="font-size:0.9rem; padding: 18px 48px;">
+    💬 &nbsp;Écrire sur WhatsApp
+  </a>
+</section>
+
+<footer>
+  <div class="footer-copy">© 2026 Nassour Brahim — N'Djaména, Tchad</div>
+  <div class="footer-brand">N · Brahim</div>
+</footer>
+
+<script>
+  // CURSEUR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 80);
+  });
+
+  // PARTICULES
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.r = Math.random() * 1.5 + 0.3;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.speedY = (Math.random() - 0.5) * 0.3;
+      this.alpha = Math.random() * 0.5 + 0.1;
+      this.gold = Math.random() > 0.7;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = this.gold
+        ? `rgba(201, 168, 76, ${this.alpha})`
+        : `rgba(245, 240, 232, ${this.alpha * 0.4})`;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+  function drawLines() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 100) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(139, 105, 20, ${0.15 * (1 - dist / 100)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    drawLines();
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // SCROLL REVEAL
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 100);
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.process-item').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
+
+
