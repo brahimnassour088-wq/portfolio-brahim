@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nassour Brahim | Développeur Web - N'Djamena</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .title-font { font-family: 'Playfair Display', serif; }
+
+    .gradient-header {
+      background: linear-gradient(135deg, #166534, #4d3c1a, #854d0e);
+      background-size: 300% 300%;
+      animation: gradientMove 15s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .floating {
+      animation: float 3.5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-18px) rotate(3deg); }
+    }
+
+    .card {
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card:hover {
+      transform: translateY(-25px) scale(1.06);
+      box-shadow: 0 30px 60px -15px rgb(0 0 0 / 0.4);
+    }
+
+    .btn-pulse {
+      animation: pulse 2.2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-white">
+
+  <!-- Header -->
+  <header class="gradient-header py-28 text-center relative overflow-hidden">
+    <div class="container mx-auto px-6">
+      <h1 class="text-6xl md:text-7xl font-bold mb-4 floating">Nassour Brahim</h1>
+      <p class="text-2xl text-emerald-200 mb-6">Développeur Web • N'Djamena, Tchad 🇹🇩</p>
+      <p class="text-xl max-w-xl mx-auto mb-10">Je crée des sites web modernes qui font grandir ton business</p>
+      
+      <a href="https://wa.me/23565008485" 
+         class="btn-pulse inline-block bg-white text-emerald-800 font-bold text-xl px-12 py-5 rounded-full">
+        📱 Me contacter sur WhatsApp
+      </a>
+    </div>
+  </header>
+
+  <div class="container mx-auto px-6 py-16 max-w-6xl">
+
+    <!-- Services -->
+    <h2 class="text-4xl font-bold text-center mb-12 text-emerald-400">Mes Services</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="card bg-gray-900 p-8 rounded-3xl border border-emerald-700">
+        <div class="text-5xl mb-6">🌐</div>
+        <h3 class="text-2xl font-semibold mb-3">Site Vitrine</h3>
+        <p class="text-gray-400">Site élégant pour ton entreprise</p>
+        <strong class="block mt-6 text-3xl text-green-400">50 000 FCFA</strong>
+      </div>
+
+      <div class="card bg-gray-900 p-8 rounded-3xl border border-emerald-700">
+        <div class="text-5xl mb-6">🍽️</div>
+        <h3 class="text-2xl font-semibold mb-3">Site Restaurant</h3>
+        <p class="text-gray-400">Menu + réservation en ligne</p>
+        <strong class="block mt-6 text-3xl text-green-400">75 000 FCFA</strong>
+      </div>
+
+      <div class="card bg-gray-900 p-8 rounded-3xl border border-emerald-700">
+        <div class="text-5xl mb-6">🛍️</div>
+        <h3 class="text-2xl font-semibold mb-3">Site Boutique</h3>
+        <p class="text-gray-400">Vente en ligne de produits</p>
+        <strong class="block mt-6 text-3xl text-green-400">80 000 FCFA</strong>
+      </div>
+
+      <div class="card bg-gray-900 p-8 rounded-3xl border border-emerald-700">
+        <div class="text-5xl mb-6">⚡</div>
+        <h3 class="text-2xl font-semibold mb-3">Landing Page</h3>
+        <p class="text-gray-400">Pour tes promotions</p>
+        <strong class="block mt-6 text-3xl text-green-400">35 000 FCFA</strong>
+      </div>
+    </div>
+
+    <!-- Projets -->
+    <h2 class="text-4xl font-bold text-center mt-20 mb-12 text-emerald-400">Mes Projets</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <div class="card bg-gray-900 rounded-3xl overflow-hidden">
+        <img src="image.jpg" class="w-full h-64 object-cover" alt="HorSolar">
+        <div class="p-8">
+          <h3 class="text-2xl font-semibold">HorSolar</h3>
+          <p class="text-gray-400 mt-2">Entreprise d'énergie solaire</p>
+        </div>
+      </div>
+
+      <div class="card bg-gray-900 rounded-3xl overflow-hidden">
+        <img src="image-1.jpg" class="w-full h-64 object-cover" alt="Pharmacie">
+        <div class="p-8">
+          <h3 class="text-2xl font-semibold">Pharmacie Moderne</h3>
+          <p class="text-gray-400 mt-2">Site professionnel pour pharmacie</p>
+        </div>
+      </div>
+
+      <div class="card bg-gray-900 rounded-3xl overflow-hidden">
+        <img src="image-2.jpg" class="w-full h-64 object-cover" alt="École">
+        <div class="p-8">
+          <h3 class="text-2xl font-semibold">École d'Excellence</h3>
+          <p class="text-gray-400 mt-2">Site pour école privée</p>
+        </div>
+      </div>
+
+      <div class="card bg-gray-900 rounded-3xl overflow-hidden">
+        <img src="image-3.jpg" class="w-full h-64 object-cover" alt="Hôtel">
+        <div class="p-8">
+          <h3 class="text-2xl font-semibold">Noble Hôtel</h3>
+          <p class="text-gray-400 mt-2">Site de présentation hôtel</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Contact -->
+    <div class="mt-20 bg-gradient-to-r from-emerald-900 to-amber-800 rounded-3xl p-16 text-center">
+      <h2 class="text-4xl font-bold mb-6">Tu veux ton site ?</h2>
+      <p class="text-xl mb-10">Discutons de ton projet gratuitement</p>
+      
+      <a href="https://wa.me/23565008485" 
+         class="btn-pulse inline-block bg-white text-emerald-900 font-bold px-16 py-7 rounded-3xl text-2xl">
+        📱 Contacter sur WhatsApp
+      </a>
+    </div>
+
+  </div>
+
+  <footer class="bg-black py-12 text-center text-gray-500">
+    <p>Nassour Brahim © 2026 • Développeur Web à N'Djamena</p>
+  </footer>
+
+</body>
+  </html>
